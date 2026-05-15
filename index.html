@@ -758,6 +758,91 @@ body.overview .node {
 /* Animation Hook for Slide 5 */
 #n5.active .phase-label { animation: fadeIn .5s ease both; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Enhanced Competitive Workspace */
+.comp-workspace { 
+  display: grid; 
+  grid-template-columns: 1.1fr 0.9fr; 
+  gap: 40px; 
+  margin-top: 24px; 
+}
+
+/* Timing vs Complexity Graph */
+.graph-container {
+  position: relative;
+  height: 480px;
+  border-left: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  background: linear-gradient(to top right, rgba(177, 18, 38, 0.03), transparent);
+}
+
+.axis-label {
+  position: absolute;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--steel);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.y-axis { transform: rotate(-90deg) translateX(-50%); left: -75px; top: 50%; transform-origin: left; }
+.x-axis { bottom: -35px; left: 50%; transform: translateX(-50%); }
+
+.plot-point {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.plot-point .dot-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  display: grid;
+  place-items: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+}
+
+.plot-point.swiftdx .dot-icon {
+  width: 68px;
+  height: 68px;
+  background: var(--blue);
+  border: 2px solid var(--blue2);
+  box-shadow: 0 0 40px rgba(177, 18, 38, 0.4);
+  font-size: 14px;
+}
+
+.plot-name { 
+  font-family: 'DM Mono', monospace; 
+  font-size: 11px; 
+  margin-top: 8px; 
+  color: var(--muted); 
+  white-space: nowrap;
+}
+
+/* Feature Matrix Table */
+.matrix-table { width: 100%; border-collapse: collapse; }
+.matrix-table th { 
+  text-align: left; 
+  padding: 10px; 
+  font-family: 'DM Mono', monospace; 
+  font-size: 10px; 
+  color: var(--blue2); 
+  border-bottom: 1px solid var(--line);
+}
+.matrix-table td { 
+  padding: 14px 10px; 
+  border-bottom: 1px solid var(--line); 
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 28px; /* Changed from 18px to 28px */
+}
+.star { color: var(--accent); letter-spacing: 2px; }
 </style>
 </head>
 <body>
@@ -1097,32 +1182,80 @@ body.overview .node {
     </section>
 
     <!-- SLIDE 9: Competitors (Simplified) -->
-    <section class="node" id="n9">
+<section class="node" id="n9">
       <div class="hook">Slide 9 | Competitive Landscape</div>
       <div class="si">
-        <div class="kicker">Focused positioning</div>
-        <h2 class="hdl" style="font-size:84px;margin-bottom:32px">Intraoperative.<br><em>Margin-first.</em></h2>
-        <div class="comp-grid">
-          <div class="comp-card">
-            <div class="comp-name">SwiftDx</div>
-            <div class="comp-feature">✓ Real-time margin assessment</div>
-            <div class="comp-feature">✓ Virtual staining + LVLM analysis</div>
-            <div class="comp-feature">✓ Pathologist-centric workflow</div>
-            <div class="comp-feature">✓ Intraoperative turnaround</div>
+        <div class="kicker">Strategic Positioning</div>
+        <h2 class="hdl" style="font-size:72px;margin-bottom:10px">High Speed. <em>Low Friction.</em></h2>
+        
+        <div class="comp-workspace">
+          <div class="graph-container">
+            <div class="axis-label y-axis">Timing → Intraoperative</div>
+            <div class="axis-label x-axis">AI Integration Complexity →</div>
+            
+            <div class="plot-point swiftdx" style="top: 10%; right: 15%;">
+              <div class="dot-icon">SDx</div>
+              <div class="plot-name" style="color:var(--paper)">SwiftDx</div>
+            </div>
+
+            <div class="plot-point" style="top: 20%; left: 40%;">
+              <div class="dot-icon">INV</div>
+              <div class="plot-name">Invenio</div>
+            </div>
+            <div class="plot-point" style="top: 35%; left: 30%;">
+              <div class="dot-icon">PER</div>
+              <div class="plot-name">Perimeter</div>
+            </div>
+            <div class="plot-point" style="top: 60%; left: 10%;">
+              <div class="dot-icon">PAI</div>
+              <div class="plot-name">Paige</div>
+            </div>
+            <div class="plot-point" style="top: 80%; right: 25%;">
+              <div class="dot-icon">ROC</div>
+              <div class="plot-name">Roche/PathAI</div>
+            </div>
           </div>
-          <div class="comp-card">
-            <div class="comp-name">PathAI</div>
-            <div class="comp-feature">✓ Biomarker detection</div>
-            <div class="comp-feature">✓ Retrospective analysis</div>
-            <div class="comp-feature">✗ Not intraoperative focus</div>
-            <div class="comp-feature">✗ Different use case</div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-name">Others</div>
-            <div class="comp-feature">✓ Workflow automation</div>
-            <div class="comp-feature">✓ Image analysis tools</div>
-            <div class="comp-feature">✗ No real-time margins</div>
-            <div class="comp-feature">✗ No virtual staining</div>
+
+          <div class="table-container">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Intraoperative</th>
+                  <th>Validation</th>
+                  <th>Workflow</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="comp-brand" style="color:var(--blue2)">SwiftDx</span></td>
+                  <td><span class="star">★★★</span></td>
+                  <td><span class="star">★</span></td>
+                  <td><span class="star">★★★</span></td>
+                </tr>
+                <tr>
+                  <td><span class="comp-brand">Perimeter</span></td>
+                  <td><span class="star">★★★</span></td>
+                  <td><span class="star">★★★</span></td>
+                  <td><span class="star">★★</span></td>
+                </tr>
+                <tr>
+                  <td><span class="comp-brand">Paige/Tempus</span></td>
+                  <td><span class="star">★★</span></td>
+                  <td><span class="star">★★</span></td>
+                  <td><span class="star">★★★</span></td>
+                </tr>
+                <tr>
+                  <td><span class="comp-brand">Roche/PathAI</span></td>
+                  <td><span class="star">★</span></td>
+                  <td><span class="star">★★★</span></td>
+                  <td><span class="star">★★</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="mini" style="margin-top:20px; font-size:14px; text-transform:none; line-height:1.4">
+              <strong>SwiftDx</strong> bypasses high integration complexity by focusing on real-time virtual staining that slides directly into existing surgeon-pathologist workflows.
+            </p>
           </div>
         </div>
       </div>
